@@ -35,3 +35,29 @@ jobs:
         with:
           name: some_artifact
           path: ./date.txt
+      
+      - name: Generate Tag Name
+        run: |
+          echo ::set-env name=TAG_NAME::$(date -u +"%Y%m%d-%H%M%SZ")
+    
+      - name: Create Release
+        id: create_release # Defined to expose step output to future steps
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./date.txt
+          asset_name: date.txt
+          asset_content_type: text/plain
+        
