@@ -38,7 +38,7 @@ jobs:
       
       - name: Generate Tag Name
         run: |
-          echo "{tag_name}={date -u +"%Y%m%d-%H%M%S"}" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date -u +"%Y%m%d-%H%M%S")" >> $GITHUB_ENV
     
       - name: Create Release
         id: create_release # Defined to expose step output to future steps
@@ -46,8 +46,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ $tag_name }}
-          release_name: Release ${{ $tag_name }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
 
