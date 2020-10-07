@@ -38,7 +38,7 @@ jobs:
       
       - name: Generate Tag Name
         run: |
-          echo ::set-env name=TAG_NAME::$(date -u +"%Y%m%d-%H%M%SZ")
+          echo "{TAG_NAME}={date -u +"%Y%m%d-%H%M%S"}" >> $GITHUB_ENV
     
       - name: Create Release
         id: create_release # Defined to expose step output to future steps
