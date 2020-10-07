@@ -35,5 +35,27 @@ jobs:
       - name: Upload data
         uses: actions/upload-artifact@v2
         with:
-          name: toto
-          path: date.txt
+          name: some_artifact
+          path: ./date.txt
+
+      - name: Create Release
+        id: create_release # Defined to expose step output to future steps
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./date.zip
+          asset_name: some_asset.zip
+          asset_content_type: application/zip 
+        
