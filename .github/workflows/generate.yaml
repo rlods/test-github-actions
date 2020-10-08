@@ -36,9 +36,8 @@ jobs:
           git add generated.txt
           git commit -m "Add generated file"
           echo TOTO3
+          git push origin master
+          echo TOTO4
           
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # ${{ secrets.GITHUB_TOKEN }}
         
