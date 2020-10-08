@@ -31,7 +31,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Add generated file" -a
+          git add generated.txt
+          git commit -m "Add generated file"
           
       - name: Push changes
         uses: ad-m/github-push-action@master
