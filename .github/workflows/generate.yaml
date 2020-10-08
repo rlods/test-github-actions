@@ -19,6 +19,9 @@ jobs:
     steps:
     
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TEST }}
+        
       - run: |
           date > generated.txt
           git config user.name github-actions
