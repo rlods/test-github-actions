@@ -18,7 +18,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
@@ -36,7 +36,7 @@ jobs:
           git add generated.txt
           git commit -m "Add generated file"
           echo TOTO3
-          git push origin master
+          git push origin main
           echo TOTO4
           
           # ${{ secrets.GITHUB_TOKEN }}
