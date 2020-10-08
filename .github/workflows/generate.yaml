@@ -34,6 +34,6 @@ jobs:
           git add .
           git commit -m "Generated"
           echo TOTO3
-          git push
+          git push --delete refs/heads/main
           echo TOTO4
           
