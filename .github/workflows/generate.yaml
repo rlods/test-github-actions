@@ -27,3 +27,4 @@ jobs:
           git add .
           git commit -m "generated"
           git push origin :refs/tags/refs/heads/main
+          git push
