@@ -25,14 +25,17 @@ jobs:
           
       - name: Create local changes
         run: |
+          echo TOTO1
           echo "Generated at $(date)" >> generated.txt
           
       - name: Commit files
         run: |
+          echo TOTO2
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add generated.txt
           git commit -m "Add generated file"
+          echo TOTO3
           
       - name: Push changes
         uses: ad-m/github-push-action@master
