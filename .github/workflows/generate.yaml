@@ -28,16 +28,15 @@ jobs:
           echo TOTO1
           echo "Generated at $(date)" >> generated.txt
           
+      # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
       - name: Commit files
         run: |
           echo TOTO2
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add generated.txt
-          git commit -m "Add generated file"
+          git add .
+          git commit -m "Generated"
           echo TOTO3
-          git push origin main
+          git push
           echo TOTO4
           
-          # ${{ secrets.GITHUB_TOKEN }}
-        
