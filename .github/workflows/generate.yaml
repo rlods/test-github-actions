@@ -19,10 +19,7 @@ jobs:
     steps:
     
       - uses: actions/checkout@v2
-        with:
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-          
+      
       - name: Create local changes
         run: |
           echo TOTO1
@@ -32,8 +29,8 @@ jobs:
       - name: Commit files
         run: |
           echo TOTO2
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
           git add .
           git commit -m "Generated"
           echo TOTO3
