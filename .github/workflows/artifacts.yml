@@ -75,7 +75,9 @@ jobs:
 
       - name: Generate binary
         if: runner.os == 'Windows'
-        run: gcc main.cpp -o a.exe
+        run: |
+          cl main.cpp
+          dir
      
       - name: Generate binary
         if: runner.os != 'Windows'
