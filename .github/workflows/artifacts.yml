@@ -14,6 +14,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -71,20 +73,14 @@ jobs:
 
       - name: Generate binary
         run: gcc main.cpp -o a.out
-          
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+     
+      - name: Upload binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: some_artifact
-          path: ./a.out
- 
-      #- name: Upload binary
-      #  uses: actions/upload-release-asset@v1
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  with:
-      #    upload_url: ${{ jobs.build.steps.create_release.outputs.upload_url }} 
-      #    asset_path: ./a.out
-      #    asset_name: "a-${{ matrix.os }}.out"
-      #    # asset_content_type: text/plain
+          upload_url: ${{ needs.build.outputs.upload_url }} 
+          asset_path: ./a.out
+          asset_name: "a-${{ matrix.os }}.out"
+          # asset_content_type: text/plain
      
