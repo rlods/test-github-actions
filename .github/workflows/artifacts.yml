@@ -80,8 +80,7 @@ jobs:
           gcc main.cpp -o a.out
      
       - name: Test binary
-        run: |
-          ./a.out
+        run: a.out
      
       - name: Upload binary
         uses: actions/upload-release-asset@v1
