@@ -71,14 +71,20 @@ jobs:
 
       - name: Generate binary
         run: gcc main.cpp -o a.out
-  
-      - name: Upload binary
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ jobs.build.steps.create_release.outputs.upload_url }} 
-          asset_path: ./a.out
-          asset_name: "a-${{ matrix.node }}.out"
-          # asset_content_type: text/plain
+          name: some_artifact
+          path: ./a.out
+ 
+      #- name: Upload binary
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    upload_url: ${{ jobs.build.steps.create_release.outputs.upload_url }} 
+      #    asset_path: ./a.out
+      #    asset_name: "a-${{ matrix.os }}.out"
+      #    # asset_content_type: text/plain
      
