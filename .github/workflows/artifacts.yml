@@ -61,3 +61,24 @@ jobs:
           asset_name: date.txt
           asset_content_type: text/plain
         
+  build2:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate binary
+        run: gcc main.cpp -o a.out
+  
+      - name: Upload binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ jobs.build.steps.create_release.outputs.upload_url }} 
+          asset_path: ./a.out
+          asset_name: "a-${{ matrix.node }}.out"
+          # asset_content_type: text/plain
+     
