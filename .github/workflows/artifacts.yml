@@ -74,14 +74,16 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Generate binary
-        run: |
-          echo "Runner ${{ runner.os }}"
-          echo "Matrix ${{ matrix.os }}"
-          gcc main.cpp -o a.out
+        if: runner.os == 'Windows'
+        run: gcc main.cpp -o a.exe
+     
+      - name: Generate binary
+        if: runner.os != 'Windows'
+        run: gcc main.cpp -o a.out
      
       - name: Test binary
         if: runner.os == 'Windows'
-        run: a.out
+        run: a.exe
      
       - name: Test binary
         if: runner.os != 'Windows'
