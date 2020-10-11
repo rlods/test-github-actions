@@ -80,7 +80,12 @@ jobs:
           gcc main.cpp -o a.out
      
       - name: Test binary
+        if: runner.os == 'Windows'
         run: a.out
+     
+      - name: Test binary
+        if: runner.os != 'Windows'
+        run: ./a.out
      
       - name: Upload binary
         uses: actions/upload-release-asset@v1
