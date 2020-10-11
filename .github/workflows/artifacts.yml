@@ -69,7 +69,7 @@ jobs:
     
     strategy:
       matrix:
-        os: [ubuntu-16.04, ubuntu-18.04]
+        os: [ubuntu-16.04, ubuntu-18.04, macos-10.15]
     steps:
       - uses: actions/checkout@v2
 
@@ -84,5 +84,5 @@ jobs:
           upload_url: ${{ needs.build1.outputs.upload_url }} 
           asset_path: ./a.out
           asset_name: "a-${{ matrix.os }}.out"
-          # asset_content_type: text/plain
+          asset_content_type: application/octet-stream
      
